@@ -15,7 +15,7 @@ var file = new static.Server( './public', {
     gzip: true
 } );
 
-var port = process.env.PORT || 8000;
+var port = process.env.port || 8000;
 
 // serve
 http.createServer( function ( request, response ) {
