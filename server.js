@@ -15,7 +15,7 @@ var file = new static.Server( './public', {
     gzip: true
 } );
 
-var port = process.env.SERVER_PORT || 8181;
+var port = process.env.PORT || 8181;
 
 // serve
 http.createServer( function ( request, response ) {
@@ -23,5 +23,3 @@ http.createServer( function ( request, response ) {
         file.serve( request, response );
     } ).resume();
 } ).listen( port );
-
-console.log("Server is listening on port " + port);
