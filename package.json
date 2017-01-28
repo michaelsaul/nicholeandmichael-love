@@ -7,5 +7,8 @@
     "gulp-notify": "^2.2.0",
     "gulp-sass": "^3.1.0",
     "node-sass": "^4.3.0"
+  },
+  "dependencies": {
+    "node-static": "^0.7.9"
   }
 }
