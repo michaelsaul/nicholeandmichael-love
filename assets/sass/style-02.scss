@@ -668,7 +668,7 @@ footer {
     .caption h1 {
       font-size : 3em;
     }
-
+    
     .col-md-6.text-center {
       top    : 55%;
       height : 0;
@@ -683,13 +683,17 @@ footer {
       text-align : center;
     }
 
+    .header-02 .caption {
+      background : rgba(255,255,255,0.5);
+  }
+
     .caption h1,
     .caption h2,
     .caption h3,
     .caption h4,
     .caption h6 {
-      color       : #fff;
-      text-shadow : 0 1px 2px #555;
+      color       : $primary-color;
+      // text-shadow : 0 1px 2px #555;
     }
   }
 
@@ -741,7 +745,7 @@ footer {
   }
 
   .header-02 .caption {
-    background: rgba(255,255,255,1.0);
+    background: rgba(255,255,255,0.5);
   }
 
   .header-02 .caption h1 {
@@ -753,8 +757,9 @@ footer {
   .header-02 .caption h3,
   .header-02 .caption h4,
   .header-02 .caption h6 {
-    color       : #fff;
-    text-shadow : 0 1px 2px #555;
+    color       : $primary-color;
+    // color       : #fff;
+    // text-shadow : 0 1px 2px #555;
     font-weight : bold;
   }
 
