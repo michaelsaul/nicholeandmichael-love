@@ -372,6 +372,7 @@ a, a:visited, a:focus, a:active, a:hover, button:focus{
 
   p {
     font-family: 'Goudy Bookletter 1911', serif;
+    color          : $primary-color;
     margin-bottom  : 0;
     font-size      : 1.6em;
     line-height    : 28px;
@@ -682,7 +683,7 @@ footer {
       text-align : center;
     }
 
-    .header-02 .caption {
+    .caption {
       background : rgba(255,255,255,0.5);
   }
 
