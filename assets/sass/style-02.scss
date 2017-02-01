@@ -480,13 +480,12 @@ a, a:visited, a:focus, a:active, a:hover, button:focus{
 
   img {
     display    : inline-block;
-    max-width  : 225px;
-    max-height : 120%;
+    max-width  : 500px;
+    // max-height : 120%;
   }
 
   a {
     display            : block;
-    height             : 40px;
     opacity            : 0.5;
     text-align         : center;
     line-height        : 40px;
@@ -781,6 +780,9 @@ footer {
   .registry-02 {
     a {
       margin-bottom : 20px;
+    }
+    img {
+      max-width: 275px;
     }
   }
 

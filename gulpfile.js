@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    sourcemaps = require('gulp-sourcemaps'),
     sass = require('gulp-sass'),
     notify = require("gulp-notify"),
     bower = require('gulp-bower');
@@ -6,6 +7,7 @@ var gulp = require('gulp'),
 var config = {
     sassPath: './assets/sass',
     sassFile: '/style-02.scss',
+    cssPath: './public/css',
     bowerDir: './bower_components'
 }
 
@@ -21,6 +23,7 @@ gulp.task('icons', function() {
 
 gulp.task('css', function() {
     return gulp.src(config.sassPath + config.sassFile)
+        .pipe(sourcemaps.init())
         .pipe(sass({
             outputStyle: 'compressed',
             includePaths: [
@@ -29,9 +32,10 @@ gulp.task('css', function() {
                 config.bowerDir + '/font-awesome/scss'
             ]})
         .on('error',sass.logError))
-        .pipe(gulp.dest('./public/css'));
+        .pipe(sourcemaps.write('./maps'))
+        .pipe(gulp.dest(config.cssPath));
 });
 
 gulp.task('default', ['bower', 'icons', 'css'], function() {
     gulp.watch(config.sassPath + '/*.scss', ['css']);
-})
+});

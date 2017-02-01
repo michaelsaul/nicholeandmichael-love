@@ -10,12 +10,13 @@
     "gulp-bower": "0.0.13",
     "gulp-notify": "^2.2.0",
     "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.4.0",
     "node-sass": "^4.3.0"
   },
   "dependencies": {
     "node-static": "^0.7.9"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": "^7.4.0"
   }
 }
