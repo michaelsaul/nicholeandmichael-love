@@ -191,10 +191,13 @@
                 </div>
                 <div class="col-md-12 text-center">
                     <form class="form-inline" method="post" name="form">
-                        <div class="alert alert-danger" style="display:none;"> Please enter your name!</div>
+                        <div class="alert alert-danger" style="display:none;">Something went wrong!</div>
+                        <div class="alert alert-warning" style="display:none;">Please fill in all fields!</div>
                         <div class="alert alert-success" style="display:none;"> Thanks for your RSVP!</div>
                         <div class="form-group">
                             <input type="text" class="form-control" id="name" name="name" placeholder="Your Name / Names">
+                            <input type="text" class="form-control" id="attending" name="attending" placeholder="Number Attending">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                         </div>
                         <button type="submit" class="btn btn-default submit">RSVP <i class="ion-ios-arrow-right"></i></button>
                     </form>

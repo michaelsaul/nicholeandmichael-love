@@ -33,22 +33,42 @@ $(document).ready(function() {
     });
 });
 
-//SAVE TO CSV
+//POST to function
 $(function() {
     $(".submit").click(function() {
-        var name = $("#name").val();
-        var dataString = 'name=' + name;
 
-        if (name == '') {
-            $('.alert-danger').fadeIn().show();
+        var objData = {
+            password: $("#password").val(),
+            name: $("#name").val(),
+            attending: $("#attending").val()
+        }
+
+        if (objData.name == '' || objData.attending =='' || objData.password =='') {
+            $('.alert-warning').fadeIn().show();
         } else {
             $.ajax({
-                type: "POST",
-                url: "rsvp.php",
-                data: dataString,
-                success: function() {
+                contentType: 'application/json',
+                type: 'POST',
+                url: 'https://nicholeandmichael-rsvp.azurewebsites.net/api/StoreRSVP?code=qw6j10hkdijzxj213hx7juwojxl3sg57',
+                data: JSON.stringify(objData),
+                dataType: "json",
+                statusCode: {
+                    200: function() {
+                        $('.alert-success').fadeIn().fadeOut(3000);
+                        $('form-inline').reset;
+                    },
+                    400: function() {
+                        $('.alert-danger').fadeIn().fadeOut(3000);
+                    }
+                },
+                error: function() {
+                    $('.alert-warning').fadeIn().hide();
+                    $('.alert-danger').fadeIn().fadeOut(3000);
+                },
+                always: function() {
                     $('.alert-danger').fadeIn().hide();
-                    $('.alert-success').fadeIn().fadeOut(3000);
+                    $('.alert-warning').fadeIn().hide();
+                    $('.form-inline').reset;
                 }
             });
         }

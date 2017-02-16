@@ -1,14 +1,19 @@
 var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     sass = require('gulp-sass'),
+    uglify = require('gulp-uglify'),
+    rename = require('gulp-rename'),
     notify = require("gulp-notify"),
     bower = require('gulp-bower');
 
 var config = {
-    sassPath: './assets/sass',
-    sassFile: '/style-02.scss',
-    cssPath: './public/css',
-    bowerDir: './bower_components'
+    sassPath:   './assets/sass',
+    sassFile:   '/style-02.scss',
+    jsPath:     './assets/js',
+    jsFile:     '/style-02.js',
+    cssOutPath:    './public/css',
+    jsOutPath:  './public/js',
+    bowerDir:   './bower_components'
 }
 
 gulp.task('bower', function() {
@@ -33,9 +38,17 @@ gulp.task('css', function() {
             ]})
         .on('error',sass.logError))
         .pipe(sourcemaps.write('./maps'))
-        .pipe(gulp.dest(config.cssPath));
+        .pipe(gulp.dest(config.cssOutPath));
 });
 
-gulp.task('default', ['bower', 'icons', 'css'], function() {
+gulp.task('js', function () {
+    return gulp.src(config.jsPath + config.jsFile)
+        .pipe(uglify())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(gulp.dest(config.jsOutPath))
+});
+
+gulp.task('default', ['bower', 'icons', 'css','js'], function() {
     gulp.watch(config.sassPath + '/*.scss', ['css']);
+    gulp.watch(config.jsPath + '/*.js', ['js']);
 });
