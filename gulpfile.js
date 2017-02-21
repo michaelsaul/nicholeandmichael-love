@@ -3,7 +3,7 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
-    notify = require("gulp-notify"),
+    notify = require('gulp-notify'),
     bower = require('gulp-bower');
 
 var config = {
@@ -43,8 +43,10 @@ gulp.task('css', function() {
 
 gulp.task('js', function () {
     return gulp.src(config.jsPath + config.jsFile)
+        .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(rename({ suffix: '.min' }))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(config.jsOutPath))
 });
 
