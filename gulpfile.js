@@ -22,7 +22,7 @@ gulp.task('bower', function() {
 });
 
 gulp.task('icons', function() {
-    return gulp.src(config.bowerDir + '/fontawesome/fonts/**.*')
+    return gulp.src(config.bowerDir + '/font-awesome/fonts/**.*')
         .pipe(gulp.dest('./public/fonts'));
 });
 
@@ -50,7 +50,12 @@ gulp.task('js', function () {
         .pipe(gulp.dest(config.jsOutPath))
 });
 
-gulp.task('default', ['bower', 'icons', 'css','js'], function() {
+gulp.task('jquery', function () {
+    return gulp.src(config.bowerDir + '/jquery/dist/jquery.min.js')
+    .pipe(gulp.dest('./public/js/plugins'));
+})
+
+gulp.task('default', ['bower', 'icons', 'css','js', 'jquery'], function() {
     gulp.watch(config.sassPath + '/*.scss', ['css']);
     gulp.watch(config.jsPath + '/*.js', ['js']);
 });

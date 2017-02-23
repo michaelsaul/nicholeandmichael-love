@@ -35,7 +35,8 @@ $(document).ready(function() {
 
 //POST to function
 $(function() {
-    $(".submit").click(function() {
+    $("#rsvpform").submit(function(e) {
+        $('#spinner').fadeIn().show();
 
         var objData = {
             password: $("#password").val(),
@@ -51,25 +52,24 @@ $(function() {
                 type: 'POST',
                 url: 'https://nicholeandmichael-rsvp.azurewebsites.net/api/StoreRSVP?code=qw6j10hkdijzxj213hx7juwojxl3sg57',
                 data: JSON.stringify(objData),
-                dataType: "json",
-                statusCode: {
-                    200: function() {
-                        $('.alert-success').fadeIn().fadeOut(3000);
-                        $('form-inline').reset;
-                    },
-                    400: function() {
-                        $('.alert-danger').fadeIn().fadeOut(3000);
-                    }
-                },
-                error: function() {
-                    $('.alert-warning').fadeIn().hide();
+                dataType: "json"
+            })
+            .fail (function() {
+                $('.alert-warning').fadeIn().hide();
+                $('.alert-danger').fadeIn().fadeOut(3000);
+                $('#spinner').hide();
+            })
+            .done(function(data, textStatus, jqXHR) {
+                if (jqXHR.status == 200){
+                    $('.alert-success').fadeIn().fadeOut(3000);
+                    $('#rsvpform').trigger("reset");
+                } else {
                     $('.alert-danger').fadeIn().fadeOut(3000);
-                },
-                always: function() {
-                    $('.alert-danger').fadeIn().hide();
-                    $('.alert-warning').fadeIn().hide();
-                    $('.form-inline').reset;
                 }
+                $('.alert-danger').fadeIn().hide();
+                $('.alert-warning').fadeIn().hide();
+                $('#rsvpform').trigger("reset");
+                $('#spinner').hide();
             });
         }
         return false;
