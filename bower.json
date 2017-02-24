@@ -18,5 +18,9 @@
     "bootstrap-sass": "bootstrap-sass-official#^3.3.7",
     "font-awesome": "fontawesome#^4.7.0",
     "jquery": "jquery#2.2.4"
+  },
+  "devDependencies": {
+    "flexslider": "^2.6.3",
+    "scrollreveal": "^3.3.4"
   }
 }
