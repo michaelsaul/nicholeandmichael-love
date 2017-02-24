@@ -15,6 +15,10 @@ var file = new static.Server( './public', {
     gzip: true
 } );
 
+// Applicaiton Insights
+var appInsights = require("applicationinsights");
+appInsights.setup().start();
+
 var port = process.env.PORT || 8181;
 
 // serve
