@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">-->
+        <link href="css/style-02.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="alert alert-danger" style="display:none;">
+            <strong>Oops!</strong> Something went wrong.
+        </div>
+        <div class="container">
+            <div class="page-header">
+                <h1>Nichole & Michael RSVP List</h1>
+            </div>
+            <p>Enter your password to see who has sent an RSVP via <a href="http://nicholeandmichael.love" target="_blank">nicholeandmichael.love</a>.</p>
+            <div class="col-md-4 text-center">    
+                <form class="form-inline" method="POST" name="form" id="rsvplist">
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    </div>
+                <button type="submit" class="btn btn-default submit" id="submitbutton">Submit
+                    <i class="ion-ios-arrow-right"></i>
+                    <i class="fa fa-refresh fa-spin" style="display:none" id="spinner"></i>
+                </button>
+                </form>
+            </div>
+            <div id="guestTable" style="display:none;">
+                <table class="table table-striped">
+                    <tr id="tableHeadings">
+                        <th style="text-align:center;">Recorded</th>
+                        <th>Name</th>
+                        <th style="text-align:center;">Number of Guests</th>
+                    </tr>
+                </table>
+            </div>
+            
+            <script src="js/plugins/jquery.min.js"></script>
+            <script src="js/plugins/bootstrap.min.js"></script>
+            <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+            <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+            <script>
+                $("#rsvplist").submit(function(e){
+                    $('#spinner').fadeIn().show();
+                    var tr = $('<tr>');
+                    
+                    var postPass = {
+                        password : $("#password").val()
+                    }
+                    
+                    $.ajax({
+                        url: "https://nicholeandmichael-rsvp.azurewebsites.net/api/GetRSVP?code=qB8QvhO3LOtG4HcmJ4KfXBw2ge6ZclAKzGRGECpOxhWOXOekiy1RMg==",
+                        contentType: 'application/json',
+                        type: 'POST',
+                        data: JSON.stringify(postPass),
+                        dataType: "json"
+
+                    })
+                    .done(function(data, status, jqXHR){
+                        // console.log("Done | Data: " + data + "\nStatus: " + status)
+                        if(jqXHR.status == 200){
+                            
+                            $("tr").remove(".guestRow, .guestTotal");
+
+                            console.log("Request success.")
+
+                            var guestTotal = jqXHR.responseJSON.total;
+                            var guestList = jqXHR.responseJSON.guests;
+
+                            for(var i = 0; i < guestList.length; i++){
+                                tr = $('<tr class="guestRow">');
+                                if(guestList[i].Recorded){
+                                    tr.append('<td><i class="ion-ios-checkmark-empty" style="display:block;text-align:center;"></i></td>');
+                                } else {
+                                    tr.append('<td></td>');
+                                }
+                                tr.append('<td>' + guestList[i].Name + '</td>');
+                                tr.append('<td style="text-align:center;">' + guestList[i].Attending + '</td>');
+                                $('table').append(tr);
+                                // console.log(tr);
+                            }
+                            $("tbody").append('<tr class="guestTotal"><td></td><td>Total</td><td style="text-align:center;">' + guestTotal + '</td></tr>');
+                            $("#guestTable").show();
+                            $('#spinner').hide();
+
+                        }
+                    })
+                    .fail(function(data, status){
+                        console.log("Request Error | Data: " + data + "\nStatue: " + status)
+                        $('.alert-danger').fadeIn().fadeOut(3000);
+                    });
+                    return false;
+                });
+            </script>
+    </div>
+    </body>
+</html>
